@@ -1,6 +1,6 @@
 
 > [!IMPORTANT]  
-> ⚠️ **This is a fork of [CodetrixStudio/CapacitorGoogleAuth](https://github.com/CodetrixStudio/CapacitorGoogleAuth), the original project is no longer maintained. This fork includes the **bare minimum changes needed to keep the plugin functional**.
+> ⚠️ **This is a fork of [CodetrixStudio/CapacitorGoogleAuth](https://github.com/CodetrixStudio/CapacitorGoogleAuth)**, the original project is no longer maintained. This fork includes the **bare minimum changes needed to keep the plugin functional**.
 
 
 <h1 align="center">CapacitorGoogleAuth</h1>
