@@ -1,6 +1,6 @@
 {
-  "name": "@codetrix-studio/capacitor-google-auth",
-  "version": "3.4.0-rc.4",
+  "name": "@daniele-rolli/capacitor-google-auth",
+  "version": "3.4.0-rc.5",
   "description": "Google Auth plugin for capacitor.",
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -14,6 +14,12 @@
     "docgen": "docgen --api GoogleAuthPlugin --output-readme README.md"
   },
   "author": "CodetrixStudio",
+  "maintainers": [
+    {
+      "name": "Daniele Rolli",
+      "email": "danielerolli@proton.me"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
     "@capacitor/android": "^6.0.0",
@@ -36,7 +42,7 @@
     "android/",
     "!android/src/androidTest",
     "!android/src/test",
-    "CodetrixStudioCapacitorGoogleAuth.podspec"
+    "DanieleRolliCapacitorGoogleAuth.podspec"
   ],
   "keywords": [
     "capacitor",
@@ -60,10 +66,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CodetrixStudio/CapacitorGoogleAuth"
+    "url": "https://github.com/Daniele-rolli/CapacitorGoogleAuth"
   },
   "bugs": {
-    "url": "https://github.com/CodetrixStudio/CapacitorGoogleAuth/issues"
+    "url": "https://github.com/Daniele-rolli/CapacitorGoogleAuth/issues"
   },
   "prettier": "@ionic/prettier-config"
 }

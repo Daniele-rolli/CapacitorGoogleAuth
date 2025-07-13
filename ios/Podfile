@@ -1,4 +1,4 @@
-require_relative '../../node_modules/@capacitor/ios/scripts/pods_helpers'
+require_relative '../node_modules/@capacitor/ios/scripts/pods_helpers'
 
 platform :ios, '13.0'
 
@@ -8,7 +8,7 @@ target 'Plugin' do
   pod 'Capacitor', :path => '../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../node_modules/@capacitor/ios'
 
-  pod 'GoogleSignIn', '~> 6.2.4'
+  pod 'GoogleSignIn', '~> 7.0'
 
 end
 
