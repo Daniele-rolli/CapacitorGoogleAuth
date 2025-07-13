@@ -1,39 +1,65 @@
-name: Publish Package to npm
+name: Publish Package to npm and GitHub Packages
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write # Required for provenance
-
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: '16'
-          registry-url: 'https://registry.npmjs.org'
+
       - run: npm ci
+
       - run: npm test
 
-  publish-npm:
+      - name: Get version from package.json
+        id: get-version
+        run: |
+          VERSION=$(jq -r .version package.json)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+  publish:
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      id-token: write # Required for provenance
+      contents: write # Needed to create release
+      packages: write # For GitHub Packages
+      id-token: write # For provenance
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: '16'
-          registry-url: 'https://registry.npmjs.org'
+
+      - name: Set up .npmrc for npmjs.org
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
+      - name: Set up .npmrc for GitHub Packages
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_PACKAGES_TOKEN }}" >> ~/.npmrc
+
       - run: npm ci
-      - run: npm publish --provenance --access public
+
+      - name: Publish to npmjs.org
+        run: npm publish --provenance --access public
+
+      - name: Publish to GitHub Packages
+        run: npm publish --provenance --access public --registry=https://npm.pkg.github.com
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.build.outputs.version }}
+          name: Release v${{ needs.build.outputs.version }}
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
