@@ -1,4 +1,4 @@
-name: Publish Package to npm and GitHub Packages
+name: Publish Package to npm
 
 on:
   push:
@@ -32,7 +32,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write # Needed to create release
-      packages: write # For GitHub Packages
       id-token: write # For provenance
 
     steps:
@@ -45,16 +44,10 @@ jobs:
       - name: Set up .npmrc for npmjs.org
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
-      - name: Set up .npmrc for GitHub Packages
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_PACKAGES_TOKEN }}" >> ~/.npmrc
-
       - run: npm ci
 
       - name: Publish to npmjs.org
         run: npm publish --provenance --access public
-
-      - name: Publish to GitHub Packages
-        run: npm publish --provenance --access public --registry=https://npm.pkg.github.com
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
